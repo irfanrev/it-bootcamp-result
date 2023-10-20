@@ -115,7 +115,9 @@
             </ul>
 
             <div class="col-md-3 text-end">
-                <button type="button" class="btn me-2" style="background-color: darkslategray; border-radius: 28px; color: white; width: 150px;">Contact Me!</button>
+                <button type="button" class="btn me-2"
+                    style="background-color: darkslategray; border-radius: 28px; color: white; width: 150px;">Contact
+                    Me!</button>
                 <!-- <button type="button" class="btn btn-primary">Sign-up</button> -->
             </div>
         </header>
@@ -150,7 +152,10 @@
                 <div class="col-lg-6">
                     <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Full-Stack Mobile Developer
                     </h1>
-                    <p class="lead">I am a Mobile Developer and Google Developer Community leader with a strong track record. My experience includes being a Mobile Developer at Suitmedia Digital Agency, leading the Google Developers Student Clubs Chapter Unsika, and chairing the Informatics Engineering Student Association Unsika.</p>
+                    <p class="lead">I am a Mobile Developer and Google Developer Community leader with a strong track
+                        record. My experience includes being a Mobile Developer at Suitmedia Digital Agency, leading the
+                        Google Developers Student Clubs Chapter Unsika, and chairing the Informatics Engineering Student
+                        Association Unsika.</p>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-start mt-3">
 
                         <i class="fa-brands fa-facebook"
@@ -403,18 +408,22 @@
     <!-- Contact -->
     <div class="container my-5" id="contact">
         <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg">
-          <div class="col-lg-7 p-3 p-lg-5 pt-lg-3">
-            <h1 class="display-4 fw-bold lh-1 text-body-emphasis">Contact me for more information!</h1>
-            <p class="lead">If you are interested in creating your own application, please contact me to get more detailed information regarding creating digital solutions.</p>
-            <div class="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
-              <button type="button" class="btn btn-primary btn-lg px-4 me-md-2 fw-bold" style="background-color: darkslategray; border-radius: 28px; width: 180px;">Whatsapp</button>
+            <div class="col-lg-7 p-3 p-lg-5 pt-lg-3">
+                <h1 class="display-4 fw-bold lh-1 text-body-emphasis">Contact me for more information!</h1>
+                <p class="lead">If you are interested in creating your own application, please contact me to get more
+                    detailed information regarding creating digital solutions.</p>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
+                    <button type="button" class="btn btn-primary btn-lg px-4 me-md-2 fw-bold"
+                        style="background-color: darkslategray; border-radius: 28px; width: 180px;">Whatsapp</button>
+                </div>
             </div>
-          </div>
-          <div class="col-lg-4 offset-lg-1 p-0 overflow-hidden shadow-lg">
-              <img class="rounded-lg-3" src="https://images.unsplash.com/photo-1532522750741-628fde798c73?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" width="720">
-          </div>
+            <div class="col-lg-4 offset-lg-1 p-0 overflow-hidden shadow-lg">
+                <img class="rounded-lg-3"
+                    src="https://images.unsplash.com/photo-1532522750741-628fde798c73?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    alt="" width="720">
+            </div>
         </div>
-      </div>
+    </div>
 
     <!-- footer -->
 
@@ -437,6 +446,62 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
             integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
             crossorigin="anonymous"></script>
+        <script>
+            var TxtRotate = function (el, toRotate, period) {
+                this.toRotate = toRotate;
+                this.el = el;
+                this.loopNum = 0;
+                this.period = parseInt(period, 10) || 2000;
+                this.txt = '';
+                this.tick();
+                this.isDeleting = false;
+            };
+
+            TxtRotate.prototype.tick = function () {
+                var i = this.loopNum % this.toRotate.length;
+                var fullTxt = this.toRotate[i];
+
+                if (this.isDeleting) {
+                    this.txt = fullTxt.substring(0, this.txt.length - 1);
+                } else {
+                    this.txt = fullTxt.substring(0, this.txt.length + 1);
+                }
+
+                this.el.innerHTML = '<span class="wrap">' + this.txt + '</span>';
+
+                var that = this;
+                var delta = 200 - Math.random() * 100;
+
+                if (this.isDeleting) {
+                    delta /= 2;
+                }
+
+                if (!this.isDeleting && this.txt === fullTxt) {
+                    delta = this.period;
+                    this.isDeleting = true;
+                } else if (this.isDeleting && this.txt === '') {
+                    this.isDeleting = false;
+                    this.loopNum++;
+                    delta = 500;
+                }
+
+                setTimeout(function () {
+                    that.tick();
+                }, delta);
+            };
+
+            window.onload = function () {
+                var elements = document.getElementsByClassName('txt-rotate');
+                for (var i = 0; i < elements.length; i++) {
+                    var toRotate = elements[i].getAttribute('data-rotate');
+                    var period = elements[i].getAttribute('data-period');
+                    if (toRotate) {
+                        new TxtRotate(elements[i], JSON.parse(toRotate), period);
+                    }
+                }
+            };
+
+        </script>
 </body>
 
 </html>
